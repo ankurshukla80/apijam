@@ -42,27 +42,29 @@ PCF_API: PCF API Endpoint
 
 PCF_DOMAIN: PCF Domain for your apps. 
 
-1. Step 1: Push the sample application as a CF app to PCF
+# Steps
 
-..a. Clone the Apigee Edge GitHub repo:
+**1. Push the sample application as a CF app to PCF**
+
+   a. Clone the Apigee Edge GitHub repo:
     $ git clone https://github.com/apigee/cloud-foundry-apigee.git
 
-..b. Change to the *org-and-microgateway-sample* directory of the cloned repo:
+   b. Change to the *org-and-microgateway-sample* directory of the cloned repo:
     $ cd cloud-foundry-apigee/samples/org-and-microgateway-sample
 
-..c. In the *org-and-microgateway-sample* directory, edit *manifest.yml* and change the following parameters:
-...**name**: {your_initials}-sampleapi-mg
-...**host**: {your_initials}-sampleapi-mg
-...applications: 
+   c. In the *org-and-microgateway-sample* directory, edit *manifest.yml* and change the following parameters:
+   **name**: {your_initials}-sampleapi-mg
+   **host**: {your_initials}-sampleapi-mg
 ```
-- name: {your_initials}-sampleapi-mg
-  memory: 128M 
-  instances: 1 
-  host: {your_initials}-sampleapi-mg
-  path: . 
-  buildpack: nodejs_buildpack
+  applications: 
+  - name: {your_initials}-sampleapi-mg
+    memory: 128M 
+    instances: 1 
+    host: {your_initials}-sampleapi-mg
+    path: . 
+    buildpack: nodejs_buildpack
 ```
-..d. Set your API endpoint to the Cloud Controller of your deployment
+   d. Set your API endpoint to the Cloud Controller of your deployment
     $ cf api --skip-ssl-validation https://api.system.apigee-demo.net
 ```
 Setting api endpoint to https://api.system.apigee-demo.net...
@@ -71,7 +73,7 @@ OK
 api endpoint:   https://api.system.apigee-demo.net
 api version:    2.82.0
 ```
-..e. Log in to your deployment and select an org and a space
+   e. Log in to your deployment and select an org and a space
     $ cf login
 ```
 API endpoint: https://api.system.apigee-demo.net
@@ -91,21 +93,21 @@ User:           sandeepmuru+pivotal+labuser3@google.com
 Org:            apigee
 Space:          sandeepmuru+pivotal+labuser3@google.com
 ```
-...You can also select the org and space through the following command
+   You can also select the org and space through the following command
     ```
     $cf target -o $PCF_ORG -s $PCF_SPACE
     ```
 
-..f. Push the sample app to PCF:
-...From within the *org-and-microgateway-sample* folder run:
+   f. Push the sample app to PCF:
+    From within the *org-and-microgateway-sample* folder run:
     $ cf push
-...if successful, you should see some output from this command and finally:
+    If successful, you should see some output from this command and finally:
 ```
      state     since                    cpu    memory          disk          details
 #0   running   2018-04-25 02:50:40 PM   0.0%   56.3M of 600M   46.5M of 1G
 ```
 
-..g. Get a list of apps to determine the URL of the app just pushed:
+   g. Get a list of apps to determine the URL of the app just pushed:
     $ cf apps
 ```
 Getting apps in org apigee / space sandeepmuru+pivotal+labuser3@google.com as sandeepmuru+pivotal+labuser3@google.com...
@@ -115,13 +117,13 @@ name                        requested state   instances   memory   disk   urls
 hm-sampleapi-mg             started           1/1         600M     1G   hm-sampleapi-mg.apps.apigee-demo.net
 ```
 
-..h. Use curl to send a test request to the url of the running app
+   h. Use curl to send a test request to the url of the running app
     $ curl hm-sampleapi-mg.apps.apigee-demo.net
 ```
 {"hello":"hello from cf app"}
 ```
 
-2. Install the Apigee Broker Plugin
+**2. Install the Apigee Broker Plugin**
 
 ..a. $cf install-plugin -r CF-Community "apigee-broker-plugin"
 ```
@@ -139,7 +141,7 @@ Commands offered by installed plugins:
   apigee-bind-org,abo    apigee-unbind-mgc,auc  
 ```
 
-3. Create a Service Instance
+**3. Create a Service Instance**
 
 ..a. List the Marketplace services and locate the Apigee Edge service:
     $ cf marketplace
@@ -174,7 +176,7 @@ dashboard:       https://enterprise.apigee.com/platform/#/
 ...
 ```
 
-4. Deploy Edge Microgateway onto Pivotal Cloud Foundry
+**4. Deploy Edge Microgateway onto Pivotal Cloud Foundry**
 
 ..a. Install Edge Microgateway (Optional)
     Follow the instructions to [install and configure Edge Microgateway] (https://docs.apigee.com/api-platform/microgateway/2.5.x/installing-edge-microgateway)on your machine.
@@ -218,7 +220,7 @@ applications:
 #0   running   2018-04-26 10:41:17 AM   0.0%   952K of 512M   1.3M of 1G
 ```
 
-5. Bind the Sample CF App created in Step 1 to route its requests to the Apigee Egde Service Instance created in Step 3.
+**5. Bind the Sample CF App created in Step 1 to route its requests to the Apigee Egde Service Instance created in Step 3.**
 
 ...The apigee-bind-mg command creates a proxy for you and binds the app to the service.
 
@@ -229,7 +231,7 @@ Action to take ("bind", "proxy bind", or "proxy") [required]: proxy bind
 Target application protocol [optional]: https
 
 
-6. Test the binding
+**6. Test the binding**
 Once you’ve bound your app’s path to the Apigee service (creating an Apigee proxy in the process), you can try it out with the sample app.
 
 From a command line run the curl command you ran earlier to make a request to your Cloud Foundry app you pushed, such as:
@@ -240,7 +242,7 @@ From a command line run the curl command you ran earlier to make a request to yo
 ```
     You should see an validation error as edge micro is checking for security! 
 	
-7. Test the binding again
+**7. Test the binding again**
     In order to fix the error from the previous step, you need an API key.
 	
 ..a. To get an API Key, go to Management UI, create an API Product add `edgemicro-auth` and `edgemicro_cf-{your_initials}_helloapi.YOUR-SYSTEM-DOMAIN` API Proxies to it. Create an APP and get a Key. 
@@ -257,7 +259,7 @@ From a command line run the curl command you ran earlier to make a request to yo
     {“hello”:“hello from cf app”}
 ```
 
-8. Extra credit
+**8. Extra credit**
     Login to [https://apigee.com/edge](https://apigee.com/edge)
     Go to API Proxies
     You should see an API Proxy created by the PCF Service Broker- with the following name `edgemicro_cf-{your_initials}_helloapi.YOUR-SYSTEM-DOMAIN`
@@ -277,21 +279,19 @@ From a command line run the curl command you ran earlier to make a request to yo
     ```
     
 	
-	*Congratulations!*...
+	**Congratulations!**...
     What does this mean
     - You have analytics across all your APIs, created through PCF
     - You can add authentication, traffic management and few more directly from your cf CLI, without logging into Apigee
     - When you do that the business teams can create API Products, and scale the consumption
     - If you have swagger spec for this API, you can enable your developers to access these APIs through smartdocs
     
-5. Where to from here
+# Where to from here
     We will add more labs on Apigee PCF Usecases. 
     - You can add authentication, traffic management and few more directly from your cf CLI, without logging into Apigee
     - You can choose to have these APIs proxied by Apigee Edge Microgateway, instead of the central runtime
     - You can choose to decorate your App, with the Apigee Edge Microgateway meta build pack
     - If you are using Apigee Private cloud, you can choose to manage the private cloud through PCF's BOSH
-
-
 
 # Summary
 
