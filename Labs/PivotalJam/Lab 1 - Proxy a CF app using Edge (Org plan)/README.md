@@ -210,7 +210,7 @@ dashboard:       https://enterprise.apigee.com/platform/#/
    * Click the Trace tab, then click the Start Trace Session button.
 
    * From a command line run the curl command you ran earlier to make a request to your Cloud Foundry app you pushed, such as:
-```
+
    $ curl http://{your_sample_app_name}.apps.apigee-demo.net
 
    You should see the following response as before:
