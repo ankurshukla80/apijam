@@ -14,9 +14,11 @@ The content for this apijam includes multiple labs that use Apigee api proxy ser
 * Labs
 
 ### Labs
-[1. Proxy a CF app using Edge (Org plan)](https://github.com/apigee/devjam3/tree/master/Labs/Lab%201%20API%20Design%20-%20Create%20a%20Reverse%20Proxy%20with%20OpenAPI%20specification)
-[2. Proxy a CF app using Edge Microgateway (Microgateway plan)](https://github.com/apigee/devjam3/tree/master/Labs/Lab%201%20API%20Design%20-%20Create%20a%20Reverse%20Proxy%20with%20OpenAPI%20specification)
-[3. Proxy a CF app using Edge Microgateway (Microgateway-Coresident plan)](https://github.com/apigee/devjam3/tree/master/Labs/Lab%201%20API%20Design%20-%20Create%20a%20Reverse%20Proxy%20with%20OpenAPI%20specification)
++[1. Proxy a CF app using Edge (Org plan)](https://github.com/apigee/devjam3/tree/master/Labs/Lab%201%20API%20Design%20-%20Create%20a%20Reverse%20Proxy%20with%20OpenAPI%20specification)
+
++[2. Proxy a CF app using Edge Microgateway (Microgateway plan)](https://github.com/apigee/devjam3/tree/master/Labs/Lab%201%20API%20Design%20-%20Create%20a%20Reverse%20Proxy%20with%20OpenAPI%20specification)
+
++[3. Proxy a CF app using Edge Microgateway (Microgateway-Coresident plan)](https://github.com/apigee/devjam3/tree/master/Labs/Lab%201%20API%20Design%20-%20Create%20a%20Reverse%20Proxy%20with%20OpenAPI%20specification)
 
 
 #### Apigee Community 
