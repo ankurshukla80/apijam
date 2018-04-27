@@ -307,24 +307,15 @@ applications:
     - You can add authentication, traffic management and few more directly from your cf CLI, without logging into Apigee
     - When you do that the business teams can create API Products, and scale the consumption
     - If you have swagger spec for this API, you can enable your developers to access these APIs through smartdocs
-    
-# Where to from here
-    We will add more labs on Apigee PCF Usecases. 
-    - You can add authentication, traffic management and few more directly from your cf CLI, without logging into Apigee
-    - You can choose to have these APIs proxied by Apigee Edge Microgateway, instead of the central runtime
-    - You can choose to decorate your App, with the Apigee Edge Microgateway meta build pack
-    - If you are using Apigee Private cloud, you can choose to manage the private cloud through PCF's BOSH
 
 # Summary
 
-In this lab you have added API Management to an API created in PCF.
+In this lab you have added API Management to an API created in PCF using Apigee Edge Microgateway.
 
 # References
 
-* Link to Apigee docs page
-    * [Installing Apigee Edge Service Broker for PCF tile]
+* [Installing Apigee Edge Service Broker for PCF tile]
     (http://docs.pivotal.io/partners/apigee/installing.html)
-
 
 # Rate this lab
 
