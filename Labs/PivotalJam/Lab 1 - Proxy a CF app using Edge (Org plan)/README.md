@@ -8,6 +8,8 @@
 
 You have an API Created in Pivotal Cloud Founday. You want to proxy it through Apigee Edge.
 
+
+
 # How can Apigee Edge help?
 
 The [Apigee Edge Service Broker for PCF](https://docs.apigee.com/api-platform/integrations/cloud-foundry/install-and-configure-apigee-service-broker) enables developers to manage APIs for their PCF apps through the Apigee Edge management console.
