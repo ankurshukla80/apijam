@@ -171,17 +171,17 @@ apigee-edge   org, microgateway, microgateway-coresident   Apigee Edge API Platf
    b. Create an instance of the Apigee Edge service. 
    
    Select the microgateway service plan to have Apigee Edge Microgateway run in a separate container from your Cloud Foundry app.
-
-   $ cf create-service apigee-edge microgateway {your_initials}_apigee_mg_service -c '{"org":"amer-api-partner19","env":"test"}'
 ```
+   $ cf create-service apigee-edge microgateway {your_initials}_apigee_mg_service -c '{"org":"amer-api-partner19","env":"test"}'
+
 Creating service instance hm_apigee_mg_service in org apigee / space sandeepmuru+pivotal+labuser3@google.com as sandeepmuru+pivotal+labuser3@google.com...
 OK
 ```
 
    c. Use the cf service command to display information about the service instance:
-
-   $ cf service {your_initials}_apigee_mg_service
 ```
+   $ cf service {your_initials}_apigee_mg_service
+
 Showing info of service hm_apigee_mg_service in org apigee / space sandeepmuru+pivotal+labuser3@google.com as sandeepmuru+pivotal+labuser3@google.com...
 
 name:            hm_apigee_mg_service
@@ -206,9 +206,9 @@ dashboard:       https://enterprise.apigee.com/platform/#/
     $ git checkout tags/v.2.5.4
     
    b. Copy the Microgateway configuration YAML file *amer-api-partner19-test-config.yaml* from this Lab 2 */resources* folder to the *microgateway/config* directory in the Microgateway repository cloned in step c. above.
-
+```
    $ cp resources/amer-api-partner19-test-config.yaml microgateway/config
-
+```
    c. Edit the application manifest file *microgateway/manifest.yml* in the cloned Edge Microgateway repository to update the following env values: (Replace {your-initials} with your own). Leave the other values as-is.
 ```
 applications:
