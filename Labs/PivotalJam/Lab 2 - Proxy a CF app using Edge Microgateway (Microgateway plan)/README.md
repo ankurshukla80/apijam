@@ -139,7 +139,9 @@ hm-sampleapi-mg             started           1/1         600M     1G   hm-sampl
 
 **2. Install the Apigee Broker Plugin**
 
-   a. $ cf install-plugin -r CF-Community "apigee-broker-plugin"
+   a. Run the CF install-plugin command
+   
+   $ cf install-plugin -r CF-Community "apigee-broker-plugin"
 ```
 Installing plugin Apigee-Broker-Plugin...
 OK
