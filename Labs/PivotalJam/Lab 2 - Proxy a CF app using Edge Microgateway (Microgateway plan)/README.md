@@ -8,6 +8,8 @@
 
 You have an API Created in Pivotal Cloud Founday. You want to proxy it through Apigee Edge using Edge Microgateway.
 
+![Microgateway Plan](resources/MicrogatewayPlan.png)
+
 # How can Apigee Edge help?
 
 The [Apigee Edge Service Broker for PCF](https://docs.apigee.com/api-platform/integrations/cloud-foundry/install-and-configure-apigee-service-broker) enables developers to manage APIs for their PCF apps through the Apigee Edge management console.
@@ -30,9 +32,9 @@ Before you begin, you will need to get the following from your PCF instance or r
 
 YOUR-SYSTEM-DOMAIN: This the the domian/hostname where the PCF is deployed. If you are using self signed certs for this endpoint, you will have to use `--skip-ssl-validation` for some of the commands
 
-PCF-USER-NAME: PCF username
+PCF_USERNAME: PCF username
 
-PCF-PASSWORD: PCF Password
+PCF_PASSWORD: PCF Password
 
 PCF_ORG: The instance of your PCF deployment. If you are familiar with PCF, you may just refer to this as ORG. Since Apigee also as a concept of ORG, we will call this PCF_ORG for this lab
 
@@ -80,6 +82,8 @@ api version:    2.82.0
    e. Log in to your deployment and select an org and a space
     
     $ cf login
+    -or-
+    $ cf login -u {PCF_USERNAME} -p {PCF_PASSWORD}
 ```
 API endpoint: https://api.system.apigee-demo.net
 
@@ -100,11 +104,11 @@ Space:          sandeepmuru+pivotal+labuser3@google.com
 ```
    You can also select the org and space through the following command
     ```
-    $cf target -o $PCF_ORG -s $PCF_SPACE
+    $cf target -o {PCF_ORG} -s {PCF_SPACE}
     ```
 
-   f. Push the sample app to PCF:
-    
+   f. Push the sample app to PCF
+
     From within the *org-and-microgateway-sample* folder run:
     
     $ cf push
@@ -135,7 +139,9 @@ hm-sampleapi-mg             started           1/1         600M     1G   hm-sampl
 
 **2. Install the Apigee Broker Plugin**
 
-   a. $ cf install-plugin -r CF-Community "apigee-broker-plugin"
+   a. Run the CF install-plugin command
+   
+   $ cf install-plugin -r CF-Community "apigee-broker-plugin"
 ```
 Installing plugin Apigee-Broker-Plugin...
 OK
@@ -164,18 +170,20 @@ OK
 service       plans                                        description
 apigee-edge   org, microgateway, microgateway-coresident   Apigee Edge API Platform
 ```
-   b. Create an instance of the Apigee Edge service. Select the microgateway service plan to have Apigee Edge Microgateway run in a separate container from your Cloud Foundry app.
-
-   $ cf create-service apigee-edge microgateway {your_initials}_apigee_mg_service -c '{"org":"amer-api-partner19","env":"test"}'
+   b. Create an instance of the Apigee Edge service. 
+   
+   Select the microgateway service plan to have Apigee Edge Microgateway run in a separate container from your Cloud Foundry app.
 ```
+   $ cf create-service apigee-edge microgateway {your_initials}_apigee_mg_service -c '{"org":"amer-api-partner19","env":"test"}'
+
 Creating service instance hm_apigee_mg_service in org apigee / space sandeepmuru+pivotal+labuser3@google.com as sandeepmuru+pivotal+labuser3@google.com...
 OK
 ```
 
    c. Use the cf service command to display information about the service instance:
-
-   $ cf service {your_initials}_apigee_mg_service
 ```
+   $ cf service {your_initials}_apigee_mg_service
+
 Showing info of service hm_apigee_mg_service in org apigee / space sandeepmuru+pivotal+labuser3@google.com as sandeepmuru+pivotal+labuser3@google.com...
 
 name:            hm_apigee_mg_service
@@ -191,27 +199,19 @@ dashboard:       https://enterprise.apigee.com/platform/#/
 
 **4. Deploy Edge Microgateway onto Pivotal Cloud Foundry**
 
-   a. Install Edge Microgateway (Optional)
-   
-   Follow the instructions to [install and configure Edge Microgateway] (https://docs.apigee.com/api-platform/microgateway/2.5.x/installing-edge-microgateway)on your machine.
-
-   b. Make any desired changes to the Microgateway configuration YAML file *{apigee-org}-{apigee-env}-config.yaml* created in your Apigee Edge Microgateway installation, typically in the ~/.edgemicro directory. (Optional)
-
-   c. Clone the Apigee Microgateway repository.
+   a. Clone the Apigee Microgateway repository.
     
     $ git clone https://github.com/apigee-internal/microgateway.git
     
     $ cd microgateway
     
     $ git checkout tags/v.2.5.4
-
-   d. If you performed the optional steps a.,b above for your own install of Edge Microgateway, then copy the Microgateway configuration YAML file *{apigee-org}-{apigee-env}-config.yaml* created in your Apigee Edge Microgateway installation edited in step b. above, to the *microgateway/config* directory in the Microgateway repository cloned in step c. above.  
-
-    $ cp ~/.edgemicro/{apigee-org}-{apigee-env}-config.yaml microgateway/config
-
-   d'. Alternatively, copy the Microgateway configuration YAML file *amer-api-partner19-test-config.yaml* from this Lab 2 */resources* folder to the *microgateway/config* directory in the Microgateway repository cloned in step c. above.
-
-   e. Edit the application manifest file *microgateway/manifest.yml* folder of the cloned Edge Microgateway repository to update the following env values: (Replace {your-initials} with your own). Leave the other values as-is.
+    
+   b. Copy the Microgateway configuration YAML file *amer-api-partner19-test-config.yaml* from this Lab 2 */resources* folder to the *microgateway/config* directory in the Microgateway repository cloned in step c. above.
+```
+   $ cp resources/amer-api-partner19-test-config.yaml microgateway/config
+```
+   c. Edit the application manifest file *microgateway/manifest.yml* in the cloned Edge Microgateway repository to update the following env values: (Replace {your-initials} with your own). Leave the other values as-is.
 ```
 applications:
 - name: {your-initials}-edgemicro-app
@@ -228,8 +228,7 @@ applications:
     EDGEMICRO_ORG: 'amer-api-partner19'
     NODE_TLS_REJECT_UNAUTHORIZED: '0'
 ```
-   f. Finally push the Edge Microgateway as its own cloud foundy app to PCF.
-     Run cf push from within the microgateway folder of the cloned repository.
+   d. Finally push the Edge Microgateway as its own cloud foundy app to PCF. Run cf push from within the microgateway folder of the cloned repository.
     
     $ cf push
 ```
@@ -317,7 +316,4 @@ In this lab you have added API Management to an API created in PCF using Apigee 
 * [Installing Apigee Edge Service Broker for PCF tile]
     (http://docs.pivotal.io/partners/apigee/installing.html)
 
-# Rate this lab
-
-How did you like this lab? Rate [here](https://docs.google.com/forms/d/e/1FAIpQLSf048tEsGEfy6f6B0dd3ujg5MrkBgmcXKf9zVzgIubHtTEwnw/viewform?c=0&w=1).
 

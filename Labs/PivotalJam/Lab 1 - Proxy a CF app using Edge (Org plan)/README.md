@@ -8,6 +8,8 @@
 
 You have an API Created in Pivotal Cloud Founday. You want to proxy it through Apigee Edge.
 
+![Org Plan](resources/OrgPlan.png)
+
 # How can Apigee Edge help?
 
 The [Apigee Edge Service Broker for PCF](https://docs.apigee.com/api-platform/integrations/cloud-foundry/install-and-configure-apigee-service-broker) enables developers to manage APIs for their PCF apps through the Apigee Edge management console.
@@ -29,9 +31,9 @@ Before you begin, you will need to get the following from your PCF instance or r
 
 YOUR-SYSTEM-DOMAIN: This the the domian/hostname where the PCF is deployed. If you are using self signed certs for this endpoint, you will have to use `--skip-ssl-validation` for some of the commands
 
-PCF-USER-NAME: PCF username
+PCF_USERNAME: PCF username
 
-PCF-PASSWORD: PCF Password
+PCF_PASSWORD: PCF Password
 
 PCF_ORG: The instance of your PCF deployment. If you are familiar with PCF, you may just refer to this as ORG. Since Apigee also as a concept of ORG, we will call this PCF_ORG for this lab
 
@@ -79,6 +81,8 @@ api version:    2.82.0
    e. Log in to your deployment and select an org and a space
     
     $ cf login
+    -or-
+    $ cf login -u {PCF_USERNAME} -p {PCF_PASSWORD}
 ```
 API endpoint: https://api.system.apigee-demo.net
 
@@ -134,7 +138,9 @@ hm-sampleapi                started           1/1         600M     1G   hm-sampl
 
 **2. Install the Apigee Broker Plugin**
 
-   a. $ cf install-plugin -r CF-Community "apigee-broker-plugin"
+   a. Run the CF install-plugin command
+   
+   $ cf install-plugin -r CF-Community "apigee-broker-plugin"
 ```
 Installing plugin Apigee-Broker-Plugin...
 OK
@@ -164,17 +170,17 @@ service       plans                                        description
 apigee-edge   org, microgateway, microgateway-coresident   Apigee Edge API Platform
 ```
    b. Create an instance of the Apigee Edge service. Select the *org* service plan.
-
-   $ cf create-service apigee-edge org {your_initials}_apigee_service -c '{"org":"amer-api-partner19","env":"test"}'
 ```
+   $ cf create-service apigee-edge org {your_initials}_apigee_service -c '{"org":"amer-api-partner19","env":"test"}'
+
 Creating service instance hm_apigee_service in org apigee / space sandeepmuru+pivotal+labuser3@google.com as sandeepmuru+pivotal+labuser3@google.com...
 OK
 ```
 
    c. Use the cf service command to display information about the service instance:
-
-   $ cf service {your_initials}_apigee_service
 ```
+   $ cf service {your_initials}_apigee_service
+
 Showing info of service hm_apigee_service in org apigee / space sandeepmuru+pivotal+labuser3@google.com as sandeepmuru+pivotal+labuser3@google.com...
 
 name:            hm_apigee_service
@@ -210,11 +216,11 @@ dashboard:       https://enterprise.apigee.com/platform/#/
    * Click the Trace tab, then click the Start Trace Session button.
 
    * From a command line run the curl command you ran earlier to make a request to your Cloud Foundry app you pushed, such as:
-
+```
    $ curl http://{your_sample_app_name}.apps.apigee-demo.net
 
    You should see the following response as before:
-```
+
     {“hello”:“hello from cf app”}
 ```
     
@@ -235,7 +241,4 @@ In this lab you have added API Management to an API created in PCF using Apigee 
 * [Installing Apigee Edge Service Broker for PCF tile]
     (http://docs.pivotal.io/partners/apigee/installing.html)
 
-# Rate this lab
-
-How did you like this lab? Rate [here](https://docs.google.com/forms/d/e/1FAIpQLSf048tEsGEfy6f6B0dd3ujg5MrkBgmcXKf9zVzgIubHtTEwnw/viewform?c=0&w=1).
 
