@@ -86,7 +86,7 @@ e.g. Replace INITIALS-YOUR-SERVICE-INSTANCE to something similar to dz-apigee-mg
 
 ```bash
 $ cf create-service apigee-edge microgateway-coresident INITIALS-YOUR-SERVICE-INSTANCE -c \
-'{"org":"YOUR-ORG", "env":"YOUR-ENV"}'
+'{"org":"YOUR-APIGEE-ORG", "env":"YOUR-APIGEE-ENV"}'
 Creating service instance INITIALS-YOUR-SERVICE-INSTANCE in org apigee / space ...
 OK
 ```
