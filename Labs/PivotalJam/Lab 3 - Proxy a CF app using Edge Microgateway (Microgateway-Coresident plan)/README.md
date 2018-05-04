@@ -6,7 +6,7 @@
 
 # Use case
 
-TODO
+![Apigee Microgateway Coresident Plan](./images/Apigee_Microgateway_Coresident.png "Apigee Microgateway Coresident Plan")
 
 # How can Apigee Edge help?
 
