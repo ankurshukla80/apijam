@@ -11,7 +11,7 @@ edge_config:
   keySecretMessage: The following credentials are required to start edge micro
   products: 'https://amer-api-partner19-test.apigee.net/edgemicro-auth/products'
 edgemicro:
-  port: 8080
+  port: 8000
   max_connections: 1000
   config_change_poll_interval: 600
   logging:
